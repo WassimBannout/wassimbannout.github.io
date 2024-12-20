@@ -1,4 +1,5 @@
 # Software Developer
+#### Technical Skills: Java, Python, C, C++, HTML, CSS, Javascript
 ### Education
 - Bachelor of Science in Computer Science
 - Bachelor of Business Administration
