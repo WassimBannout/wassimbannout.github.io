@@ -9,12 +9,12 @@
 ## Projects
 ### AI-Powered Tic-Tac-Toe Game
 
-Created a bot that uses minimax algorithm to play the game of tic-tac-toe.
+Developed a Python-based Tic-Tac-Toe game featuring Human vs. AI mode with two AI difficulty levels: a random move generator and a Minimax algorithm for optimal decision-making. 
 
 ![Tic-Tac-Toe](/assets/img/tictactoe.jpg)
 
 ### Password Manager
 
-Programmed a simple password manager.
+Developed a Secure Password Vault application in Python using the cryptography library. The program features encryption key management, secure password storage, retrieval, and update functionalities. Implemented user-friendly menu-driven operations to create and manage encrypted password vaults efficiently.
 
 ![Password Manager](/assets/img/password.jpg)
