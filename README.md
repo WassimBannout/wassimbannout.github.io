@@ -5,4 +5,6 @@
 - Bachelor of Business Administration
 ### Projects
 - AI-Powered Tic-Tac-Toe Game
+![Tic-Tac-Toe](/assets/img/tictactoe.jpg)
 - Password Manager
+![Password Manager](/assets/img/password.jpg)
