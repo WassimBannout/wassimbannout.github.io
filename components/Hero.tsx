@@ -2,11 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { ArrowDown, Github, ArrowUpRight } from "lucide-react";
 
 const E = [0.16, 1, 0.3, 1] as const;
-
 const roles = ["Software Engineer", "Data Scientist", "Database Engineer"];
 
 function useTypewriter(words: string[], speed = 75, pause = 2200) {
@@ -40,70 +38,48 @@ function useTypewriter(words: string[], speed = 75, pause = 2200) {
 }
 
 function PhotoPanel() {
-  const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
 
-  return (
-    <div className="relative w-full h-full flex items-center justify-center p-10 lg:p-14">
-      {/* Contained portrait frame */}
-      <div
-        className="relative w-full overflow-hidden border border-line/50"
-        style={{ maxWidth: 340, aspectRatio: "3 / 4" }}
-      >
-        {!error ? (
-          <>
-            <Image
-              src="/photo.jpg"
-              fill
-              alt="Wassim Bannout"
-              className={`object-cover object-top transition-opacity duration-700 ${
-                loaded ? "opacity-100" : "opacity-0"
-              }`}
-              onLoad={() => setLoaded(true)}
-              onError={() => setError(true)}
-              priority
-            />
-            {loaded && (
-              <div className="absolute inset-x-0 bottom-0 h-1/5 bg-gradient-to-t from-bg/60 to-transparent z-10" />
-            )}
-            {!loaded && !error && (
-              <div className="absolute inset-0">
-                <PhotoPlaceholder />
-              </div>
-            )}
-          </>
-        ) : (
-          <PhotoPlaceholder />
-        )}
+  if (error) {
+    return (
+      <div className="absolute inset-0 bg-gradient-to-br from-[#120a2a] via-[#0a0a18] to-bg">
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: "radial-gradient(circle, rgba(167,139,250,0.15) 1px, transparent 1px)",
+            backgroundSize: "36px 36px",
+          }}
+        />
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <div className="w-28 h-28 rounded-2xl border border-accent/20 bg-accent/5 flex items-center justify-center mb-3">
+            <span className="font-syne font-extrabold text-4xl text-accent/50">WB</span>
+          </div>
+          <p className="font-mono text-[10px] text-muted/25 tracking-[0.3em] uppercase">
+            photo.jpg → /public/
+          </p>
+        </div>
+        {/* Left gradient to blend with content */}
+        <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-bg to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-bg to-transparent" />
       </div>
-    </div>
-  );
-}
+    );
+  }
 
-function PhotoPlaceholder() {
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-[#120a2a] via-[#0a0a18] to-bg">
-      {/* Dot grid */}
-      <div
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: "radial-gradient(circle, rgba(167,139,250,0.12) 1px, transparent 1px)",
-          backgroundSize: "36px 36px",
-        }}
+    <div className="absolute inset-0">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/photo.jpg"
+        alt="Wassim Bannout"
+        className="w-full h-full object-cover object-center"
+        onError={() => setError(true)}
       />
-      {/* Rings */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-72 h-72 rounded-full border border-accent/5" />
-        <div className="absolute w-52 h-52 rounded-full border border-accent/8" />
-        <div className="absolute w-36 h-36 rounded-full border border-accent/12" />
-      </div>
-      {/* Monogram */}
-      <div className="relative z-10 w-24 h-24 rounded-2xl border border-accent/20 bg-accent/5 flex items-center justify-center mb-4 glow-accent-sm">
-        <span className="font-syne font-extrabold text-3xl text-accent/60">WB</span>
-      </div>
-      <p className="relative z-10 font-mono text-[10px] text-muted/30 tracking-[0.3em] uppercase">
-        photo.jpg → /public/
-      </p>
+      {/* Left gradient — blends photo into the dark left panel */}
+      <div className="absolute inset-y-0 left-0 w-2/5 bg-gradient-to-r from-bg via-bg/70 to-transparent" />
+      {/* Bottom gradient */}
+      <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-bg to-transparent" />
+      {/* Top gradient */}
+      <div className="absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-bg to-transparent" />
     </div>
   );
 }
@@ -113,9 +89,9 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen grid lg:grid-cols-[58fr_42fr] overflow-hidden pt-16">
-      {/* ── LEFT — content ── */}
-      <div className="flex flex-col justify-between px-6 md:px-12 lg:px-16 py-12 lg:py-16">
-        {/* Top: badge */}
+      {/* LEFT — content */}
+      <div className="flex flex-col justify-between px-6 md:px-12 lg:px-16 py-12 lg:py-16 relative z-10">
+        {/* Available badge */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -131,7 +107,7 @@ export default function Hero() {
           </span>
         </motion.div>
 
-        {/* Middle: name */}
+        {/* Name */}
         <div className="my-8 lg:my-0">
           <div className="overflow-hidden">
             <motion.h1
@@ -156,7 +132,7 @@ export default function Hero() {
             </motion.h1>
           </div>
 
-          {/* Typewriter role */}
+          {/* Typewriter */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -170,7 +146,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Bottom: description + CTAs + stats */}
+        {/* Description + CTAs */}
         <div>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -182,7 +158,6 @@ export default function Hero() {
             data science, and intelligent systems.
           </motion.p>
 
-          {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -206,16 +181,15 @@ export default function Hero() {
               GitHub
             </a>
           </motion.div>
-
         </div>
       </div>
 
-      {/* ── RIGHT — photo ── */}
+      {/* RIGHT — photo (full bleed, behind gradients) */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.3 }}
-        className="relative hidden lg:block min-h-[600px]"
+        transition={{ duration: 1.2, delay: 0.3 }}
+        className="relative hidden lg:block"
       >
         <PhotoPanel />
       </motion.div>
@@ -225,12 +199,12 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.8 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted"
+        className="absolute bottom-8 left-8 md:left-12 lg:left-16 flex items-center gap-3 text-muted"
       >
-        <span className="font-mono text-[10px] tracking-[0.3em] uppercase">Scroll</span>
-        <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}>
+        <motion.div animate={{ y: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}>
           <ArrowDown className="w-3.5 h-3.5" />
         </motion.div>
+        <span className="font-mono text-[10px] tracking-[0.3em] uppercase">Scroll</span>
       </motion.div>
     </section>
   );
