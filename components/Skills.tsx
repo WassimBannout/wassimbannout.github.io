@@ -21,14 +21,15 @@ function SectionLabel({ num, title }: { num: string; title: string }) {
   );
 }
 
+// All skills from categories — row1: Languages + Backend, row2: Data&ML + Frontend + Tools
 const row1 = [
-  "Python", "TypeScript", "JavaScript", "Java", "C#", "SQL",
-  "React", "Next.js", "FastAPI", "Node.js", "Tailwind CSS",
+  "Python", "TypeScript", "JavaScript", "Java", "C#", "SQL", "Bash",
+  "FastAPI", "Node.js", "ASP.NET Core", "PostgreSQL", "MySQL", "MongoDB", "Redis",
 ];
 const row2 = [
-  "PostgreSQL", "MongoDB", "Redis", "MySQL", "Docker", "Git",
-  "TensorFlow", "PyTorch", "scikit-learn", "Pandas", "NumPy",
-  "GitHub Actions", "Linux",
+  "Pandas", "NumPy", "scikit-learn", "TensorFlow", "PyTorch", "Matplotlib",
+  "React", "Next.js", "Tailwind CSS", "Framer Motion",
+  "Git", "Docker", "GitHub Actions", "Linux", "Postman",
 ];
 
 const categories = [

@@ -44,32 +44,38 @@ function PhotoPanel() {
   const [error, setError] = useState(false);
 
   return (
-    <div className="relative w-full h-full overflow-hidden">
-      {!error ? (
-        <>
-          <Image
-            src="/photo.jpg"
-            fill
-            alt="Wassim Bannout"
-            className={`object-cover object-top transition-opacity duration-700 ${loaded ? "opacity-100" : "opacity-0"}`}
-            onLoad={() => setLoaded(true)}
-            onError={() => setError(true)}
-            priority
-          />
-          {/* Bottom fade */}
-          {loaded && (
-            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-bg to-transparent z-10" />
-          )}
-          {/* Left fade */}
-          {loaded && (
-            <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-bg to-transparent z-10" />
-          )}
-          {/* Fallback if image src exists but not loaded yet */}
-          {!loaded && !error && <PhotoPlaceholder />}
-        </>
-      ) : (
-        <PhotoPlaceholder />
-      )}
+    <div className="relative w-full h-full flex items-center justify-center p-10 lg:p-14">
+      {/* Contained portrait frame */}
+      <div
+        className="relative w-full overflow-hidden border border-line/50"
+        style={{ maxWidth: 340, aspectRatio: "3 / 4" }}
+      >
+        {!error ? (
+          <>
+            <Image
+              src="/photo.jpg"
+              fill
+              alt="Wassim Bannout"
+              className={`object-cover object-top transition-opacity duration-700 ${
+                loaded ? "opacity-100" : "opacity-0"
+              }`}
+              onLoad={() => setLoaded(true)}
+              onError={() => setError(true)}
+              priority
+            />
+            {loaded && (
+              <div className="absolute inset-x-0 bottom-0 h-1/5 bg-gradient-to-t from-bg/60 to-transparent z-10" />
+            )}
+            {!loaded && !error && (
+              <div className="absolute inset-0">
+                <PhotoPlaceholder />
+              </div>
+            )}
+          </>
+        ) : (
+          <PhotoPlaceholder />
+        )}
+      </div>
     </div>
   );
 }
@@ -101,12 +107,6 @@ function PhotoPlaceholder() {
     </div>
   );
 }
-
-const stats = [
-  { val: "5+", label: "Projects" },
-  { val: "10+", label: "Technologies" },
-  { val: "3", label: "Domains" },
-];
 
 export default function Hero() {
   const role = useTypewriter(roles);
@@ -187,7 +187,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.05, duration: 0.6 }}
-            className="flex flex-wrap items-center gap-4 mb-10"
+            className="flex flex-wrap items-center gap-4"
           >
             <a
               href="#projects"
@@ -207,22 +207,6 @@ export default function Hero() {
             </a>
           </motion.div>
 
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.25, duration: 0.6 }}
-            className="flex items-center gap-8 pt-6 border-t border-line"
-          >
-            {stats.map((s) => (
-              <div key={s.label}>
-                <div className="font-syne font-extrabold text-2xl text-fg">{s.val}</div>
-                <div className="font-mono text-xs text-muted tracking-widest uppercase mt-0.5">
-                  {s.label}
-                </div>
-              </div>
-            ))}
-          </motion.div>
         </div>
       </div>
 

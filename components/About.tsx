@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 
 function SectionLabel({ num, title }: { num: string; title: string }) {
   return (
@@ -22,34 +21,12 @@ function SectionLabel({ num, title }: { num: string; title: string }) {
   );
 }
 
-function CountUp({ to, inView }: { to: number; inView: boolean }) {
-  const [n, setN] = useState(0);
-  const ran = useRef(false);
-  useEffect(() => {
-    if (!inView || ran.current) return;
-    ran.current = true;
-    let i = 0;
-    const steps = 35;
-    const inc = to / steps;
-    const t = setInterval(() => {
-      i++;
-      setN(Math.min(Math.round(inc * i), to));
-      if (i >= steps) clearInterval(t);
-    }, 35);
-    return () => clearInterval(t);
-  }, [inView, to]);
-  return <>{n}</>;
-}
-
 export default function About() {
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
   return (
-    <section id="about" ref={ref} className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto">
+    <section id="about" className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto">
       <SectionLabel num="01" title="Who I Am" />
 
-      <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 mb-20 md:mb-28">
+      <div className="grid lg:grid-cols-2 gap-12 lg:gap-24">
         {/* Statement */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -101,33 +78,6 @@ export default function About() {
         </motion.div>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-3 gap-4 md:gap-8 pt-10 md:pt-14 border-t border-line">
-        {[
-          { to: 5, suffix: "+", label: "Projects Completed" },
-          { to: 10, suffix: "+", label: "Technologies" },
-          { to: 3, suffix: "", label: "Domains" },
-        ].map((s, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: i * 0.1 }}
-          >
-            <div
-              className="font-syne font-extrabold text-fg leading-none mb-2"
-              style={{ fontSize: "clamp(2.8rem, 6vw, 5rem)" }}
-            >
-              <CountUp to={s.to} inView={inView} />
-              <span className="text-accent">{s.suffix}</span>
-            </div>
-            <div className="font-mono text-[10px] text-muted tracking-[0.2em] uppercase">
-              {s.label}
-            </div>
-          </motion.div>
-        ))}
-      </div>
     </section>
   );
 }
