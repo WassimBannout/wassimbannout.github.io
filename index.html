@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Wassim Bannout — Backend engineer building ML inference pipelines, real-time streaming systems, and distributed architecture. Based in Lebanon." />
+  <meta property="og:title" content="Wassim Bannout — Software Engineer" />
+  <meta property="og:description" content="Backend engineer. ML pipelines. Distributed systems." />
+  <meta property="og:type" content="website" />
+  <title>Wassim Bannout — Software Engineer</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- ── NAV ─────────────────────────────────────────────── -->
+  <nav class="navbar navbar-expand-lg fixed-top" id="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="#hero" aria-label="Home">
+        <span class="brand">WB</span>
+      </a>
+      <button class="navbar-toggler" type="button"
+              data-bs-toggle="collapse" data-bs-target="#navMenu"
+              aria-controls="navMenu" aria-expanded="false"
+              aria-label="Toggle navigation">
+        <span class="hbar"></span><span class="hbar"></span><span class="hbar"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item ms-lg-4 mt-3 mt-lg-0">
+            <a class="nav-cta" href="https://github.com/WassimBannout"
+               target="_blank" rel="noopener">GitHub ↗</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ── HERO ────────────────────────────────────────────── -->
+  <section id="hero" class="hero">
+    <div class="container">
+      <div class="row align-items-center hero-row">
+
+        <!-- Left: copy -->
+        <div class="col-lg-6">
+          <div class="hero-copy">
+            <p class="hero-eyebrow">
+              <span class="pulse-dot"></span>Available · Lebanon
+            </p>
+            <h1 class="hero-h1">
+              Backend engineer.<br>
+              <span class="h1-dim">Applied AI.</span><br>
+              <span class="h1-accent">End to end.</span>
+            </h1>
+            <p class="hero-sub">
+              I build the infrastructure that makes AI systems
+              production-ready — from ML inference pipelines and
+              real-time streaming APIs to the distributed backends
+              they depend on.
+            </p>
+            <div class="hero-actions">
+              <a href="#projects" class="btn-primary">View Projects</a>
+              <a href="https://github.com/WassimBannout"
+                 target="_blank" rel="noopener" class="btn-ghost">GitHub ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: code card (desktop only) -->
+        <div class="col-lg-6 d-none d-lg-flex justify-content-end">
+          <div class="hero-code-card">
+            <div class="code-chrome">
+              <div class="code-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="code-filename">transcription/stream.py</span>
+            </div>
+            <pre class="code-body"><code><span class="ck">@router</span><span class="cp">.get(</span><span class="cs">"/transcribe"</span><span class="cp">)</span>
+<span class="ck">async def</span> <span class="cf">stream_transcription</span>(
+    audio<span class="cp">:</span> <span class="ct">UploadFile</span>,
+    preset<span class="cp">:</span> <span class="ct">DomainPreset</span> <span class="cp">=</span> <span class="ct">DomainPreset</span><span class="cp">.</span>GENERAL,
+)<span class="cp">:</span>
+    segments <span class="cp">=</span> <span class="ck">await</span> whisper<span class="cp">.</span><span class="cf">transcribe</span>(audio)
+
+    <span class="ck">async def</span> <span class="cf">generate</span>()<span class="cp">:</span>
+        <span class="ck">async for</span> token <span class="ck">in</span> llm<span class="cp">.</span><span class="cf">stream</span>(
+            text<span class="cp">=</span>segments, preset<span class="cp">=</span>preset
+        )<span class="cp">:</span>
+            <span class="ck">yield</span> <span class="cs">f"data: </span><span class="ci">{token}</span><span class="cs">\n\n"</span>
+
+    <span class="ck">return</span> <span class="ct">StreamingResponse</span>(
+        <span class="cf">generate</span>(),
+        media_type<span class="cp">=</span><span class="cs">"text/event-stream"</span>,
+    )</code></pre>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── ABOUT ───────────────────────────────────────────── -->
+  <section id="about" class="sec">
+    <div class="container">
+      <div class="row align-items-center g-5">
+
+        <!-- Photo -->
+        <div class="col-lg-5 d-flex justify-content-center justify-content-lg-start">
+          <div class="about-photo-wrap reveal">
+            <img
+              src="photo.jpeg"
+              alt="Wassim Bannout"
+              class="about-photo"
+              loading="lazy"
+              draggable="false"
+            />
+          </div>
+        </div>
+
+        <!-- Copy -->
+        <div class="col-lg-7 reveal">
+          <p class="sec-eyebrow">About</p>
+          <h2 class="sec-title">Correctness first.<br>Performance always.</h2>
+          <div class="about-copy">
+            <p>
+              I'm Wassim — a software engineer from Lebanon with a focus on
+              backend systems and applied machine learning. My work lives at
+              the intersection of reliable infrastructure and intelligent
+              systems: building the pipelines, APIs, and automation that
+              make AI useful in production.
+            </p>
+            <p>
+              I care about the engineering decisions that hold under load —
+              async I/O patterns, fault-tolerant ML pipelines, and system
+              design that scales without needing constant human intervention.
+              I'm not building demos; I'm building things meant to run.
+            </p>
+          </div>
+
+          <!-- Specific, verifiable numbers from actual projects -->
+          <div class="about-stats">
+            <div class="astat">
+              <span class="astat-n">&lt;&thinsp;3s</span>
+              <span class="astat-l">Audio → refined<br>text, end to end</span>
+            </div>
+            <div class="astat">
+              <span class="astat-n">22</span>
+              <span class="astat-l">Engineered ML<br>features (OctoPredict)</span>
+            </div>
+            <div class="astat">
+              <span class="astat-n">4</span>
+              <span class="astat-l">Automated ML<br>lifecycle jobs</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── PROJECTS ────────────────────────────────────────── -->
+  <section id="projects" class="sec sec-alt">
+    <div class="container">
+
+      <div class="sec-header reveal">
+        <p class="sec-eyebrow">Projects</p>
+        <h2 class="sec-title">Selected work</h2>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- 01 -->
+        <article class="pcard reveal" data-n="01">
+          <div class="pcard-top">
+            <span class="ptag">AI · Backend</span>
+            <a href="https://github.com/WassimBannout/ai-transcription-engine"
+               target="_blank" rel="noopener"
+               class="parrow" aria-label="View on GitHub">↗</a>
+          </div>
+          <h3 class="pcard-title">AI Transcription Engine</h3>
+          <p class="pcard-lead">
+            Whisper transcription → LLM refinement → SSE token stream,
+            end to end in under 3 seconds on CPU.
+          </p>
+          <p class="pcard-desc">
+            Full-stack speech-to-text pipeline with real-time streaming.
+            Audio is processed through faster-Whisper, then refined
+            token-by-token by a local LLM via Server-Sent Events — five
+            domain presets (meetings, interviews, lectures, technical,
+            general) shape the output. Fully offline via Ollama;
+            swappable to any OpenAI-compatible endpoint. Single-command
+            Docker Compose deploy.
+          </p>
+          <div class="pstack">
+            <span>Python</span><span>FastAPI</span><span>faster-Whisper</span>
+            <span>SSE</span><span>TypeScript</span><span>React 19</span>
+            <span>Ollama</span><span>Docker</span>
+          </div>
+        </article>
+
+        <!-- 02 -->
+        <article class="pcard reveal" data-n="02">
+          <div class="pcard-top">
+            <span class="ptag">ML · Prediction</span>
+            <a href="https://github.com/WassimBannout/OctoPredict"
+               target="_blank" rel="noopener"
+               class="parrow" aria-label="View on GitHub">↗</a>
+          </div>
+          <h3 class="pcard-title">OctoPredict</h3>
+          <p class="pcard-lead">
+            Self-healing ML pipeline: 22 features, weekly retraining,
+            four automated jobs — zero manual work post-deploy.
+          </p>
+          <p class="pcard-desc">
+            Football match prediction platform powered by XGBoost with
+            isotonic calibration. Generates three-way win/draw/loss
+            probabilities from 22 engineered features — Elo ratings,
+            rolling form, head-to-head history, venue advantage. Four
+            background jobs fully automate the ML lifecycle: fixture
+            ingestion, result updates, model retraining, and prediction
+            generation on schedule.
+          </p>
+          <div class="pstack">
+            <span>Python</span><span>XGBoost</span><span>FastAPI</span>
+            <span>Next.js 14</span><span>aiosqlite</span><span>Docker</span>
+          </div>
+        </article>
+
+        <!-- 03 -->
+        <article class="pcard reveal" data-n="03">
+          <div class="pcard-top">
+            <span class="ptag">Dev Tooling · OSS</span>
+            <a href="https://github.com/WassimBannout/open-source-terminal"
+               target="_blank" rel="noopener"
+               class="parrow" aria-label="View on GitHub">↗</a>
+          </div>
+          <h3 class="pcard-title">OSS Intelligence Dashboard</h3>
+          <p class="pcard-lead">
+            Concurrent GitHub ingestion, TTL caching, and a weighted
+            scoring model to surface trending repos in real time.
+          </p>
+          <p class="pcard-desc">
+            Real-time GitHub repository monitor that flags trending OSS
+            projects through a deliberate signal-over-noise model. Repos
+            are scored (stars × 0.5 + forks × 0.3 + issues × 0.2) and
+            flagged as trending above 50K points. Concurrent API
+            ingestion via ThreadPoolExecutor, TTL caching for rate-limit
+            control, and AI-generated health summaries via OpenAI API.
+          </p>
+          <div class="pstack">
+            <span>Python</span><span>Flask</span><span>GitHub API</span>
+            <span>ThreadPoolExecutor</span><span>TTL Cache</span><span>OpenAI API</span>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="projects-more reveal">
+        <a href="https://github.com/WassimBannout"
+           target="_blank" rel="noopener" class="btn-ghost">More on GitHub ↗</a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ── SKILLS ───────────────────────────────────────────── -->
+  <section id="skills" class="sec">
+    <div class="container">
+
+      <div class="sec-header reveal">
+        <p class="sec-eyebrow">Stack</p>
+        <h2 class="sec-title">Tools &amp; Technologies</h2>
+      </div>
+
+      <div class="skills-table reveal">
+        <div class="sk-row">
+          <span class="sk-cat">Languages</span>
+          <div class="sk-list">
+            <span>Java</span><span>Python</span><span>C</span>
+            <span>JavaScript</span><span>SQL</span><span>Bash</span>
+          </div>
+        </div>
+        <div class="sk-row">
+          <span class="sk-cat">Frameworks</span>
+          <div class="sk-list">
+            <span>Spring</span><span>Spring Boot</span>
+            <span>Flask</span><span>Django</span>
+          </div>
+        </div>
+        <div class="sk-row">
+          <span class="sk-cat">ML / Data</span>
+          <div class="sk-list">
+            <span>scikit-learn</span><span>XGBoost</span>
+            <span>Pandas</span><span>NumPy</span>
+          </div>
+        </div>
+        <div class="sk-row">
+          <span class="sk-cat">Infrastructure</span>
+          <div class="sk-list">
+            <span>Docker</span><span>Linux</span><span>Git</span><span>GitHub</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ── CONTACT ──────────────────────────────────────────── -->
+  <section id="contact" class="sec sec-alt">
+    <div class="container">
+      <div class="contact-block reveal">
+        <p class="sec-eyebrow">Contact</p>
+        <h2 class="contact-h2">
+          Let's work on<br>
+          something worth<br>
+          shipping.
+        </h2>
+        <p class="contact-sub">
+          Open to full-time engineering roles, technical collaborations,
+          and hard problems. If the work is serious, so am I.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:wassimbannout20@gmail.com" class="clink">
+            <span class="clink-label">Email</span>
+            <span class="clink-arrow">↗</span>
+          </a>
+          <a href="https://github.com/WassimBannout"
+             target="_blank" rel="noopener" class="clink">
+            <span class="clink-label">GitHub</span>
+            <span class="clink-arrow">↗</span>
+          </a>
+          <a href="https://www.linkedin.com/in/wassim-bannout"
+             target="_blank" rel="noopener" class="clink">
+            <span class="clink-label">LinkedIn</span>
+            <span class="clink-arrow">↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── FOOTER ───────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-row">
+        <span class="footer-sig">Wassim Bannout</span>
+        <span class="footer-note">Built from scratch · 2026</span>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
